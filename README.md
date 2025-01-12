@@ -5,7 +5,7 @@ Tour
 Review
 
 user {
-name, email, age, photo, role -> user, admin, status -> active, inactive
+name, email, age, photo, role -> (user, admin), status -> (active, inactive)
 }
 
 tour {
