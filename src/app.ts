@@ -1,8 +1,9 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import userRoute from './module/user/user.router';
-import { StatusCodes } from 'http-status-codes';
 import tourRouter from './module/tour/tour.route';
 import bookingRouter from './module/booking/booking.router';
+import { globalErrorHandler } from './middlewares/globalErrorHandler';
+import { StatusCodes } from 'http-status-codes';
 const app = express();
 app.use(express.json());
 
@@ -14,12 +15,12 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Home Server Page 👌❎');
 });
 
+app.use(globalErrorHandler);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, no-unused-vars
-app.use((err: any, req: Request, res: Response,next:NextFunction) => {
+app.use('*', (req: Request, res: Response) => {
   res
-    .status(StatusCodes.INTERNAL_SERVER_ERROR)
-    .json({ success: false, message: err.message, error: err });
+    .status(StatusCodes.NOT_FOUND)
+    .json({ success: false, message: 'Route not found' });
 });
 
 export default app;

@@ -1,14 +1,14 @@
-import { model, Schema } from 'mongoose';
+import mongoose, { model, Schema } from 'mongoose';
 import { IBooking } from './booking.interface';
 
 const bookingSchema = new Schema<IBooking>(
   {
     user: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
     tour: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
     bookSlots: {
@@ -31,3 +31,5 @@ const bookingSchema = new Schema<IBooking>(
 );
 
 export const Booking = model<IBooking>('Booking', bookingSchema);
+
+
